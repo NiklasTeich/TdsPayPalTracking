@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="tds_paypal_tracking.logger" class="Monolog\Logger">
+            <factory service="Shopware\Core\Framework\Log\LoggerFactory" method="createRotating"/>
+            <argument type="string">tds_paypal_tracking</argument>
+        </service>
+
+        <service id="Tds\PayPalTracking\Service\TrackingDataService">
+            <argument type="service" id="tds_paypal_tracking.logger"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="Swag\PayPal\RestApi\V1\Resource\PaymentResource" />
+            <argument type="service" id="Tds\PayPalTracking\PayPal\Resource\ShippingResource" />
+        </service>
+
+        <service id="Tds\PayPalTracking\PayPal\Resource\ShippingResource">
+            <argument type="service" id="Swag\PayPal\RestApi\Client\PayPalClientFactory"/>
+        </service>
+
+        <service id="Tds\PayPalTracking\Core\Exchange\Import\Order\Subscriber\ShippedOrderSubscriber">
+            <argument type="service" id="Tds\PayPalTracking\Service\TrackingDataService" />
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+    </services>
+
+</container>

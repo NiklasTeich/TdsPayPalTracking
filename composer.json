@@ -1,0 +1,32 @@
+{
+  "name": "tds/paypal-tracking",
+  "description": "Plugin to send PayPal tracking data",
+  "version": "1.0.0",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Teich Datensysteme"
+    }
+  ],
+  "require": {
+    "tds/merware": "*",
+    "swag/paypal": "*"
+  },
+  "extra": {
+    "shopware-plugin-class": "Tds\\PayPalTracking\\TdsPayPalTracking",
+    "label": {
+      "de-DE": "PayPal Versanddaten",
+      "en-GB": "PayPal tracking data"
+    },
+    "description": {
+      "de-DE": "Plugin für den Versand von PayPal Versanddaten",
+      "en-GB": "Plugin to send PayPal tracking data"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Tds\\PayPalTracking\\": "src/"
+    }
+  }
+}
